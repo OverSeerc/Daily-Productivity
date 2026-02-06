@@ -1,0 +1,19 @@
+:root {
+  --bg-main: #0f172a;          /* dark blue */
+  --bg-card: #111827;          /* card background */
+  --bg-soft: #1f2933;
+
+  --text-main: #e5e7eb;
+  --text-muted: #9ca3af;
+
+  --accent: #22c55e;           /* green */
+  --warning: #f59e0b;          /* amber */
+  --danger: #ef4444;
+
+  --radius: 16px;
+  --radius-small: 10px;
+
+  --spacing: 16px;
+  --sunday-accent: #38bdf8;
+
+}
