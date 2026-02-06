@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Apple / iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="DayFrame" />
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>DayFrame</title>
+
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#0f172a" />
+
+  <!-- Icons -->
+  <link rel="icon" sizes="72x72" href="assets/icons/icon-72.png" />
+  <link rel="icon" sizes="96x96" href="assets/icons/icon-96.png" />
+  <link rel="icon" sizes="128x128" href="assets/icons/icon-128.png" />
+  <link rel="icon" sizes="192x192" href="assets/icons/icon-192.png" />
+  <link rel="icon" sizes="512x512" href="assets/icons/icon-512.png" />
+  <link rel="apple-touch-icon" href="assets/icons/icon-192.png" />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/reset.css" />
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/cards.css" />
+  <link rel="stylesheet" href="css/darkmode.css" />
+</head>
+
+<body>
+
+  <!-- LOADING OVERLAY -->
+  <div id="loadingOverlay">
+    <div class="loading-box">
+      <p>Preparing your day…</p>
+    </div>
+  </div>
+
+  <!-- APP CONTAINER -->
+  <div id="app">
+
+    <!-- HEADER -->
+    <header class="app-header">
+      <img src="assets/images/logo.png" alt="DayFrame Logo" class="logo" />
+      <h1>DayFrame</h1>
+      <p class="subtitle">Your day, your rhythm</p>
+      <p id="todayDate" class="today-date"></p>
+      <p id="dayBadge" class="day-badge"></p>
+    </header>
+
+    <!-- SECTION NAV -->
+    <nav class="section-nav">
+      <button type="button" data-section="today" class="active">Today</button>
+      <button type="button" data-section="prayer">Prayer</button>
+      <button type="button" data-section="sleep">Sleep</button>
+      <button type="button" data-section="ot">OT</button>
+    </nav>
+
+    <!-- TODAY SECTION -->
+    <section class="card section active" id="today">
+      <h2>Today</h2>
+
+      <div class="row">
+        <label for="shiftSelect">Shift</label>
+        <select id="shiftSelect" aria-label="Work shift">
+          <option value="morning">Morning</option>
+          <option value="afternoon">Afternoon</option>
+        </select>
+      </div>
+
+      <div class="row">
+        <label>Transport</label>
+        <div class="toggle-group">
+          <button type="button" id="bikeBtn" class="toggle active">🛵 Motor</button>
+          <button type="button" id="carBtn" class="toggle">🚗 Car</button>
+        </div>
+      </div>
+
+      <div class="row">
+        <label for="energyLevel">Energy</label>
+        <input
+          type="range"
+          id="energyLevel"
+          min="1"
+          max="5"
+          value="3"
+          aria-label="Energy level"
+        />
+      </div>
+
+      <div class="status">
+        <p id="fatigueText">Fatigue: Normal</p>
+      </div>
+
+      <!-- RIDE -->
+      <section class="card ride-card">
+        <button type="button" id="rideBtn">🚦 I’m Riding Now</button>
+        <p id="rideAdvice">Ride advice will appear here</p>
+      </section>
+
+      <!-- NIGHT CHECK -->
+      <section class="card night-card">
+        <h2>Night Check</h2>
+
+        <label>
+          How tired are you?
+          <select id="nightTired">
+            <option value="ok">Okay</option>
+            <option value="tired">Tired</option>
+            <option value="very-tired">Very tired</option>
+          </select>
+        </label>
+
+        <label>
+          <input type="checkbox" id="homeSafe" />
+          I got home safe
+        </label>
+
+        <p class="night-message">
+          Tomorrow is a new niyyah 🌙
+        </p>
+      </section>
+    </section>
+
+    <!-- PRAYER SECTION -->
+    <section class="card section" id="prayer">
+      <h2>Prayer</h2>
+
+      <div class="prayer-list">
+        <label><input type="checkbox" /> <span>Fajr</span></label>
+<label><input type="checkbox" /> <span>Dhuhr</span></label>
+<label><input type="checkbox" /> <span>Asr</span></label>
+<label><input type="checkbox" /> <span>Maghrib</span></label>
+<label><input type="checkbox" /> <span>Isha</span></label>
+
+      </div>
+
+      <p class="next-prayer" id="nextPrayer">
+        Next prayer will appear here
+      </p>
+    </section>
+
+    <!-- SLEEP SECTION -->
+    <section class="card section" id="sleep">
+      <h2>Sleep Advisor</h2>
+
+      <p class="sleep-time">
+        Sleep by: <strong id="sleepBy">--:--</strong>
+      </p>
+
+      <p class="wake-time">
+        Wake at: <strong id="wakeAt">--:--</strong>
+      </p>
+
+      <p class="sleep-quality" id="sleepQuality">
+        Expected rest: —
+      </p>
+
+      <p class="sleep-note">🚗 Commute included (30–40 min)</p>
+      <p id="sleepNote" class="sleep-note"></p>
+    </section>
+
+    <!-- OT SECTION -->
+    <section class="card section" id="ot">
+      <h2>Overtime</h2>
+
+      <div class="ot-controls">
+        <button type="button" id="startOtBtn">Start OT</button>
+        <button type="button" id="endOtBtn" disabled>End OT</button>
+      </div>
+
+      <p id="otStatus">No OT running</p>
+    </section>
+
+  </div>
+
+  <!-- JS -->
+  <script src="js/storage.js"></script>
+  <script src="js/state.js"></script>
+  <script src="js/shift.js"></script>
+  <script src="js/transport.js"></script>
+  <script src="js/prayer.js"></script>
+  <script src="js/ot.js"></script>
+  <script src="js/sleep.js"></script>
+  <script src="js/ride.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/app.js"></script>
+
+</body>
+</html>
